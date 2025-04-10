@@ -1,7 +1,7 @@
 
 
+
 import turtle
-import math
 
 wn = turtle.Screen()
 wn.bgcolor("black")
@@ -18,10 +18,10 @@ class Pen(turtle.Turtle):
         self.speed(0)
 
 
-        levels = [""]
+levels = [""]
 
 
-        level_1 = [
+level_1 = [
             "XXXXXXXXXXXXXXXXXXXXXXXXX",
             "X  XXXXXXX            XXX",
             "X  XXXXXXX   XXXXXX   XXX",
@@ -50,5 +50,30 @@ class Pen(turtle.Turtle):
         ]
 
 
-  
+levels.append(level_1)
 
+
+def setup_maze(level):
+            for y in range(len(level)):
+                for x in range(len(level[y])):
+
+
+                    character = level[y][x]
+
+                    screen_x = -288 + (x * 24)
+                    screen_y = 288 - (y * 24)
+
+
+                    if character == "X":
+                        pen.goto(screen_x, screen_y)
+                        pen.stamp()
+
+
+pen = Pen()
+
+
+setup_maze(levels[1])
+
+
+while True:
+    pass
