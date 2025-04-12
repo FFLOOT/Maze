@@ -2,6 +2,7 @@
 
 
 import turtle
+import math
 
 wn = turtle.Screen()
 wn.bgcolor("black")
@@ -24,6 +25,7 @@ class Player(turtle.Turtle):
           self.color("blue")
           self.penup()
           self.speed(0)
+          self.gold = 0
 
      def go_up(self):
 
@@ -59,6 +61,21 @@ class Player(turtle.Turtle):
                self.goto(move_to_x, move_to_y)
 
 
+class Sparkle(turtle.Turtle):
+     def __init__(self, x, y):
+          turtle.Turtle.__init__(self)
+          self.shape("sparkle")
+          self.color("white")
+          self.penup()
+          self.speed(0)
+          self.sparkl = 100
+          self.goto(x, y)
+
+          def destroy(self):
+               self.goto(2000, 2000)
+               self.hideturtle()
+
+
 levels = [""]
 
 
@@ -89,6 +106,9 @@ level_1 = [
 "X                       X",
 "XXXXXXXXXXXXXXXXXXXXXXXXX",
 ]
+
+
+treasures = []
 
 
 levels.append(level_1)
