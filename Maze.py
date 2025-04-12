@@ -25,7 +25,7 @@ class Player(turtle.Turtle):
           self.color("blue")
           self.penup()
           self.speed(0)
-          self.gold = 0
+          self.white = 0
 
      def go_up(self):
 
@@ -37,22 +37,27 @@ class Player(turtle.Turtle):
                self.goto(move_to_x, move_to_y)
             
      def go_down(self):
+
           move_to_x = player.xcor()
           move_to_y = player.ycor() - 24
 
 
           if (move_to_x, move_to_y) not in walls:
                self.goto(move_to_x, move_to_y)
+
                
      def go_left(self):
+
           move_to_x = player.xcor() - 24
           move_to_y = player.ycor()
 
 
           if (move_to_x, move_to_y) not in walls:
                self.goto(move_to_x, move_to_y)
+
                
      def go_right(self):
+
           move_to_x = player.xcor() + 24
           move_to_y = player.ycor()
 
@@ -60,20 +65,29 @@ class Player(turtle.Turtle):
           if (move_to_x, move_to_y) not in walls:
                self.goto(move_to_x, move_to_y)
 
+     def is_collision(self, other):
+          a = self.xcor()-other.xcor()
+          b = self.ycor()-other.ycor()
+          distance = math.sqrt((a ** 2) + (b ** 2))
+
+          if distance < 5:
+               return True
+          else:
+               return False
 
 class Sparkle(turtle.Turtle):
      def __init__(self, x, y):
           turtle.Turtle.__init__(self)
-          self.shape("sparkle")
+          self.shape("circle")
           self.color("white")
           self.penup()
           self.speed(0)
-          self.sparkl = 100
+          self.white = 100
           self.goto(x, y)
 
-          def destroy(self):
-               self.goto(2000, 2000)
-               self.hideturtle()
+     def destroy(self):
+          self.goto(2000, 2000)
+          self.hideturtle()
 
 
 levels = [""]
@@ -84,26 +98,26 @@ level_1 = [
 "XP XXXXXXX            XXX",
 "X  XXXXXXX   XXXXXX   XXX",
 "X            XXXXXX   XXX",
-"XXXXXXXXXX   XX       XXX",
+"XXXXXXXXXX   XX S     XXX",
 "XXXXXXXXXX   XXXXXX   XXX",
 "X                XXXXXXXX",
 "X    XXXXXXXXX   XXXXXXXX",
 "X    XXXXXXXXX          X",
-"X                       X",
+"X         S             X",
 "X    XXXXXXXXXXXXXX     X",
 "X    XXXXXXXXXXXXXX     X",
 "X         XXXXXXXXX     X",
 "XXXXX     XXXXX         X",
 "XXXXX     XXXXX         X",
 "XXXXX     XXXXX    XXXXXX",
-"X         XXXXX    XXXXXX",
-"X         XXXXXXXXXXXXXXX",
+"X         XXXXX  S XXXXXX",
+"XS        XXXXXXXXXXXXXXX",
 "XXXXX                XXXX",
 "XXXXXX               XXXX",
 "XXXXXXXXXXXXXXXXX    XXXX",
 "XXXXXXXXXXXXXXXXX    XXXX",
 "X     XXXXXXXXXXX    XXXX",
-"X                       X",
+"X        S              X",
 "XXXXXXXXXXXXXXXXXXXXXXXXX",
 ]
 
@@ -135,12 +149,17 @@ def setup_maze(level):
                     if character == "P":
                              player.goto(screen_x, screen_y)
 
+                             
+                    if character == "S":
+                         sparkles.append(Sparkle(screen_x, screen_y))
+
 
 pen = Pen()
 player = Player()
 
 
 walls = []
+sparkles = []
 
 
 setup_maze(levels[1])
@@ -158,5 +177,18 @@ wn.tracer(0)
 
 
 while True:
+
+
+     for sparkle in sparkles:
+          if player.is_collision(sparkle):
+
+               player.white += sparkle.white
+               print ("Player White: {}".format(player.white))
+
+               sparkle.destroy()
+
+               sparkles.remove(sparkle)
+
+
 
      wn.update()
