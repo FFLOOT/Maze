@@ -25,6 +25,18 @@ class Player(turtle.Turtle):
           self.penup()
           self.speed(0)
 
+     def go_up(self):
+          self.goto(self.xcor(), self.ycor() + 24)
+            
+     def go_down(self):
+          self.goto(self.xcor(), self.ycor() - 24)
+               
+     def go_left(self):
+          self.goto(self.xcor() -24, self.ycor())
+               
+     def go_right(self):
+          self.goto(self.xcor() +24, self.ycor())
+
 
 levels = [""]
 
@@ -77,7 +89,7 @@ def setup_maze(level):
                         pen.stamp()
 
 
-                        if character == "P":
+                    if character == "P":
                              player.goto(screen_x, screen_y)
 
 
@@ -88,5 +100,16 @@ player = Player()
 setup_maze(levels[1])
 
 
+turtle.listen()
+turtle.onkey(player.go_left,"Left")
+turtle.onkey(player.go_right,"Right")
+turtle.onkey(player.go_up,"Up")
+turtle.onkey(player.go_down,"Down")
+
+
+wn.tracer(0)
+
+
 while True:
-    pass
+
+     wn.update()
