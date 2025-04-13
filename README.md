@@ -10,3 +10,7 @@ A fun little maze game made with Python and Turtle Graphics.
 
 ## ⬇️ Download
 [Download ZIP](https://github.com/FFLOOT/Maze/archive/refs/heads/main.zip)
+
+## 💻 Requirements
+- Python 3.x
+- Turtle module (comes with Python)
