@@ -109,7 +109,7 @@ class Enemy(turtle.Turtle):
           self.color("blue")
           self.penup()
           self.speed(0)
-          self.blue = 25
+          self.white = 25
           self.goto(x, y)
           self.direction = random.choice(["up", "down", "left", "right"])
 
@@ -133,6 +133,20 @@ class Enemy(turtle.Turtle):
                dy = 0
 
 
+
+          if self.is_close(player):
+               if player.xcor() < self.xcor():
+                    self.direction = "left"
+               elif player.xcor() > self.xcor():
+                    self.direction = "right"
+               elif player.xcor() > self.ycor():
+                    self.direction = "down"
+               elif player.xcor() > self.ycor():
+                    self.direction = "up"
+
+
+
+
           move_to_x = self.xcor() + dx
           move_to_y = self.ycor() + dy
 
@@ -144,7 +158,17 @@ class Enemy(turtle.Turtle):
                self.direction = random.choice(["up", "down", "left", "right"])
 
 
-          turtle.ontimer(self.move, t=random.randint(100, 300))
+          turtle.ontimer(self.move, t=random.randint(250, 400))
+
+     def is_close(self, other):
+          a = self.xcor()-other.xcor()
+          b = self.ycor()-other.ycor()
+          distance = math.sqrt((a ** 2) + (b ** 2) )
+
+          if distance < 75:
+               return True
+          else:
+               return False 
 
      def destroy(self):
           self.goto(2000, 2000)
@@ -264,6 +288,5 @@ while True:
      for enemy in enemies:
           if player.is_collision(enemy):
                print("Player dies!")
-
 
      wn.update()
