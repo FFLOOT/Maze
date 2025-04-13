@@ -284,6 +284,10 @@ while True:
 
                sparkles.remove(sparkle)
 
+     if not sparkles:
+          print("🎉 All sparkles collected! Game Over!")
+          break
+
 
      for enemy in enemies:
           if player.is_collision(enemy):
