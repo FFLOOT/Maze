@@ -10,6 +10,12 @@ wn.title("A Maze Game")
 wn.setup(700,700)
 
 
+turtle.register_shape("Images/Girl_right.gif")
+turtle.register_shape("Images/Gir_left.gif")
+turtle.register_shape("Images/Sparkle.gif")
+turtle.register_shape("Images/Wall.gif")
+
+
 class Pen(turtle.Turtle):
     def __init__(self):
         turtle.Turtle.__init__(self)
@@ -21,7 +27,7 @@ class Pen(turtle.Turtle):
 class Player(turtle.Turtle):
      def __init__(self):
           turtle.Turtle.__init__(self)
-          self.shape("square")
+          self.shape("Images/Girl_right.gif")
           self.color("blue")
           self.penup()
           self.speed(0)
@@ -51,6 +57,7 @@ class Player(turtle.Turtle):
           move_to_x = player.xcor() - 24
           move_to_y = player.ycor()
 
+          self.shape("Images/Gir_left.gif")
 
           if (move_to_x, move_to_y) not in walls:
                self.goto(move_to_x, move_to_y)
@@ -60,7 +67,8 @@ class Player(turtle.Turtle):
 
           move_to_x = player.xcor() + 24
           move_to_y = player.ycor()
-
+          
+          self.shape("Images/Girl_right.gif")
 
           if (move_to_x, move_to_y) not in walls:
                self.goto(move_to_x, move_to_y)
@@ -78,7 +86,7 @@ class Player(turtle.Turtle):
 class Sparkle(turtle.Turtle):
      def __init__(self, x, y):
           turtle.Turtle.__init__(self)
-          self.shape("circle")
+          self.shape("Images/Sparkle.gif")
           self.color("white")
           self.penup()
           self.speed(0)
@@ -116,8 +124,8 @@ level_1 = [
 "XXXXXX               XXXX",
 "XXXXXXXXXXXXXXXXX    XXXX",
 "XXXXXXXXXXXXXXXXX    XXXX",
-"X     XXXXXXXXXXX    XXXX",
-"X        S              X",
+"X S   XXXXXXXXXXX    XXXX",
+"X                       X",
 "XXXXXXXXXXXXXXXXXXXXXXXXX",
 ]
 
@@ -141,6 +149,7 @@ def setup_maze(level):
 
                     if character == "X":
                         pen.goto(screen_x, screen_y)
+                        pen.shape("Images/Wall.gif")
                         pen.stamp()
 
                         walls.append((screen_x, screen_y))
